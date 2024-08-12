@@ -1,12 +1,12 @@
 # sauce-demo-test
 # Selenium Automation with ChromeDriver
 
-## Prerequisites
+## Kebutuhan Sistem
 
 - **Python**: Pastikan Python versi 3.7 atau lebih baru telah terinstall.
 - **pip**: Manajer paket Python (pip) harus terinstall.
 - **Google Chrome**: Pastikan Google Chrome terinstall pada sistem Anda.
-- **ChromeDriver**: ChromeDriver versi yang kompatibel dengan versi Google Chrome Anda. Unduh dari [situs resmi ChromeDriver](https://sites.google.com/chromium.org/driver/).
+- **ChromeDriver**: ChromeDriver versi yang kompatibel dengan versi Google Chrome Anda. Unduh dari [situs resmi ChromeDriver](https://sites.google.com/chromium.org/driver/) atau [situs resmi ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/).
 
 ## Installation
 
@@ -14,8 +14,12 @@
    ```bash
    pip install -r requirements.txt
 
-python test_positive.py
+2. **Run Positive Test**:
+   ```bash
+   python test_positive.py
 
-python test_negative.py
+3. **Tun Negative Test**:
+   ```bash
+   python test_negative.py
 
 Pastikan file `requirements.txt` berisi semua dependensi Python yang diperlukan, seperti `selenium`.
