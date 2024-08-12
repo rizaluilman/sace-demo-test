@@ -25,9 +25,9 @@ Pastikan file `requirements.txt` berisi semua dependensi Python yang diperlukan,
 
 Untuk melihat log atau report hasil dari test silahkan buka `log.txt` 
 
-#Penjelasan Test Case
+# Penjelasan Test Case
 
-##Test Case Positive (test_positive.py)
+## Test Case Positive (test_positive.py)
 
 Test case ini dirancang untuk memverifikasi alur kerja yang normal dan positif. Dalam skenario ini, pengguna melakukan login dengan kredensial yang valid, menambahkan produk ke dalam keranjang, dan menyelesaikan proses checkout.
 
@@ -37,7 +37,7 @@ Test case ini dirancang untuk memverifikasi alur kerja yang normal dan positif. 
 4. Checkout: Pengguna melanjutkan ke proses checkout, mengisi informasi pribadi seperti nama dan kode pos, dan memastikan bahwa subtotal yang dihitung sesuai dengan subtotal yang ditampilkan.
 5. Verifikasi Checkout Berhasil: Sistem memverifikasi bahwa proses checkout berhasil dengan menampilkan pesan "THANK YOU FOR YOUR ORDER".
    
-##Test Case Negative (test_negative.py)
+## Test Case Negative (test_negative.py)
 
 Test case ini dirancang untuk menguji skenario negatif, seperti penggunaan kredensial yang salah atau bug yang diketahui pada aplikasi.
 
