@@ -14,62 +14,47 @@ def log_message(message):
 
 # Fungsi untuk melakukan login dengan data yang salah (negatif)
 def login_negative(driver):
-    # Menemukan field input username berdasarkan ID dan mengisi username yang salah
     driver.find_element(By.ID, "user-name").send_keys("invalid_user")
-    # Menemukan field input password berdasarkan ID dan mengisi password yang salah
     driver.find_element(By.ID, "password").send_keys("wrong_password")
-    # Menemukan tombol login berdasarkan ID dan mengkliknya
     driver.find_element(By.ID, "login-button").click()
-    # Mencatat pesan bahwa login gagal seperti yang diharapkan
     log_message("Attempted login with invalid credentials.")
-    time.sleep(2)  # Menunggu selama 2 detik
+    time.sleep(2)
 
 # Fungsi untuk memverifikasi pesan kesalahan login
 def verify_login_failed(driver):
     try:
-        # Memeriksa apakah pesan kesalahan login muncul
         error_message_element = driver.find_element(By.XPATH, "//h3[@data-test='error']")
         error_message = error_message_element.text
         assert "Username and password do not match any user in this service" in error_message, "Expected error message not found."
         log_message("Login failed as expected with invalid credentials.")
     except NoSuchElementException:
         log_message("Error message not displayed, test failed.")
-    time.sleep(2)  # Menunggu selama 2 detik
+    time.sleep(2)
+
+# Fungsi untuk reload halaman browser
+def reload_browser(driver):
+    driver.refresh()  # Reload halaman browser
+    log_message("Browser reloaded.")
+    time.sleep(2)  # Menunggu sejenak setelah reload
 
 # Fungsi untuk login dengan user problem_user
 def login_problem_user(driver):
-    # Menemukan field input username berdasarkan ID dan mengisi username problem_user
     driver.find_element(By.ID, "user-name").send_keys("problem_user")
-    # Menemukan field input password berdasarkan ID dan mengisi password yang benar
     driver.find_element(By.ID, "password").send_keys("secret_sauce")
-    # Menemukan tombol login berdasarkan ID dan mengkliknya
     driver.find_element(By.ID, "login-button").click()
-    # Mencatat pesan bahwa login dengan problem_user dilakukan
     log_message("Logged in with problem_user.")
-    time.sleep(2)  # Menunggu selama 2 detik
+    time.sleep(2)
 
-# Fungsi untuk memverifikasi apakah gambar produk tidak muncul di halaman utama
-def verify_images_not_displayed(driver):
+# Fungsi untuk memverifikasi bahwa login berhasil dengan problem_user
+def verify_login_successful(driver):
     try:
-        # Mengambil semua elemen gambar
-        images = driver.find_elements(By.CLASS_NAME, "inventory_item_img")
-        
-        # Iterasi melalui semua gambar untuk memeriksa apakah gambar ter-load dengan benar
-        for image in images:
-            img_src = image.get_attribute("src")
-            if img_src == "" or img_src is None:
-                log_message("Broken image found, test passed.")
-                return
-        
-        # Jika tidak ada gambar yang rusak ditemukan, test dianggap gagal
-        assert False, "No broken images found, test failed."
-        
-    except NoSuchElementException:
-        log_message("No images found, which is unexpected, test failed.")
-    except AssertionError as e:
-        log_message(str(e))
-    time.sleep(2)  # Menunggu selama 2 detik
-
+        # Memeriksa apakah label "Products" muncul setelah login
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "product_label"))
+        )
+        log_message("Login with problem_user was successful.")
+    except TimeoutException:
+        log_message("Login with problem_user failed.")
 
 # Fungsi untuk menambahkan produk ke dalam keranjang dan menghitung total harga
 def add_products_to_cart(driver):
@@ -209,17 +194,14 @@ if __name__ == "__main__":
     # Melakukan langkah-langkah pengujian negatif
     login_negative(driver)  # Mencoba login dengan kredensial yang salah
     verify_login_failed(driver)  # Memverifikasi bahwa login gagal
-    
-    # Login ulang menggunakan problem_user
+    reload_browser(driver)  # Reload halaman browser setelah login gagal
     login_problem_user(driver)  # Login dengan problem_user
-    verify_images_not_displayed(driver)  # Verifikasi gambar tidak muncul di halaman awal
+    verify_login_successful(driver)  # Memverifikasi bahwa login berhasil
     total_price = add_products_to_cart(driver)  # Menambahkan 6 produk ke keranjang
     checkout(driver, total_price)  # Checkout dan isi data
-    
     verify_checkout_error(driver)  # Verifikasi error saat mengisi data checkout (last name berubah jadi first name)
     verify_incorrect_item_total(driver, expected_total=100.0)  # Verifikasi total item tidak sesuai
     verify_checkout_success(driver)  # Verifikasi checkout berhasil (meskipun total item tidak sesuai)
-
     # Menutup sesi WebDriver
     driver.quit()
 

@@ -121,18 +121,14 @@ if __name__ == "__main__":
     driver = webdriver.Chrome(service=service)
     # Membuka halaman login dari website
     driver.get("https://www.saucedemo.com/v1/index.html")
-
     # Menghapus isi file log sebelum memulai tes baru
     open("log.txt", "w").close()
-
     # Melakukan langkah-langkah pengujian
     login_positive(driver)  # Melakukan login ke website
     verify_homepage(driver)  # Memverifikasi apakah homepage berhasil termuat
     total_price = add_products_to_cart(driver)  # Menambahkan produk ke keranjang dan menghitung total harga
     checkout(driver, total_price)  # Melanjutkan proses checkout dan memverifikasi harga
     verify_checkout_success(driver)  # Memverifikasi apakah checkout berhasil
-
     # Menutup sesi WebDriver
     driver.quit()
-
     log_message("Test completed.")  # Mencatat bahwa pengujian telah selesai
