@@ -1,0 +1,4 @@
+Attempted login with invalid credentials.
+Login failed as expected with invalid credentials.
+Logged in with problem_user.
+No broken images found, test failed.
