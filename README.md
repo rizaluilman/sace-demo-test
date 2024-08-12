@@ -25,16 +25,22 @@ Pastikan file `requirements.txt` berisi semua dependensi Python yang diperlukan,
 
 Untuk melihat log atau report hasil dari test silahkan buka `log.txt` 
 
-##Penjelasan Test Case
+#Penjelasan Test Case
+
 ##Test Case Positive (test_positive.py)
+
 Test case ini dirancang untuk memverifikasi alur kerja yang normal dan positif. Dalam skenario ini, pengguna melakukan login dengan kredensial yang valid, menambahkan produk ke dalam keranjang, dan menyelesaikan proses checkout.
+
 1. Login Positive: Pengguna masuk ke aplikasi menggunakan kredensial yang valid (standard_user dan secret_sauce).
 2. Verifikasi Homepage: Setelah login, halaman utama (homepage) yang memuat daftar produk diverifikasi untuk memastikan telah dimuat dengan benar.
 3. Menambahkan Produk ke Keranjang: Pengguna menambahkan 6 produk ke dalam keranjang belanja. Setiap harga produk dijumlahkan untuk mendapatkan total harga.
 4. Checkout: Pengguna melanjutkan ke proses checkout, mengisi informasi pribadi seperti nama dan kode pos, dan memastikan bahwa subtotal yang dihitung sesuai dengan subtotal yang ditampilkan.
 5. Verifikasi Checkout Berhasil: Sistem memverifikasi bahwa proses checkout berhasil dengan menampilkan pesan "THANK YOU FOR YOUR ORDER".
+   
 ##Test Case Negative (test_negative.py)
+
 Test case ini dirancang untuk menguji skenario negatif, seperti penggunaan kredensial yang salah atau bug yang diketahui pada aplikasi.
+
 1. Login Negative: Pengguna mencoba login dengan kredensial yang salah. Sistem memverifikasi bahwa login gagal dan menampilkan pesan kesalahan yang sesuai.
 2. Reload Browser: Setelah percobaan login yang gagal, halaman browser di-refresh untuk mengatur ulang form login.
 3. Login dengan problem_user: Pengguna mencoba login kembali menggunakan kredensial problem_user, yang dikenal memiliki bug pada aplikasi.
