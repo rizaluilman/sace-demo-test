@@ -1,4 +1,3 @@
-# sauce-demo-test
 # Selenium Automation with ChromeDriver
 
 ## Kebutuhan Sistem
